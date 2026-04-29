@@ -14,127 +14,91 @@ Write a simple Python program for the construction and reconstruction of ideal, 
 ```
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import resample
 
 # Sampling frequency
-fs = 50
+fs = 100   # Hz
 
-# Time vector 
+# Time axis (1 second)
 t = np.arange(0, 1, 1/fs)
 
 # Signal frequency
-f = 5  
+f = 5   # Hz
 
-# Continuous signal (sine wave)
-signal = np.sin(2 * np.pi * f * t)
+# Sampled signal (impulse samples of sine wave)
+signal_sampled = np.sin(2 * np.pi * f * t)
 
-# 1. Plot Continuous Signal
-
+# Plot impulse sampling (stem plot)
 plt.figure(figsize=(10, 4))
-plt.plot(t, signal, label='Continuous Signal')
-plt.title('Continuous Signal (fs = 100 Hz)')
-plt.xlabel('Time [s]')
-plt.ylabel('Amplitude')
-plt.grid(True)
-plt.legend()
-plt.show()
 
-# 2. Impulse Sampling 
-
-t_sampled = np.arange(0, 1, 1/fs)
-signal_sampled = np.sin(2 * np.pi * f * t_sampled)
-
-plt.figure(figsize=(10, 4))
-plt.stem(t_sampled, signal_sampled, linefmt='r-', markerfmt='ro', basefmt='r-', 
+plt.stem(t, signal_sampled, 
+         linefmt='r-',      # red vertical lines
+         markerfmt='ro',    # red dots
+         basefmt='r-',      # base line
          label='Sampled Signal (fs = 100 Hz)')
-plt.title('Impulse Sampling of Signal')
+
+plt.title('Sampling of Continuous Signal (fs = 100 Hz)')
 plt.xlabel('Time [s]')
 plt.ylabel('Amplitude')
 plt.grid(True)
 plt.legend()
-plt.show()
 
-# 3. Reconstruction of Signal
-
-reconstructed_signal = resample(signal_sampled, len(t))
-
-plt.figure(figsize=(10, 4))
-plt.plot(t, reconstructed_signal, 'r--', label='Reconstructed Signal')
-plt.title('Reconstructed Signal from Samples')
-plt.xlabel('Time [s]')
-plt.ylabel('Amplitude')
-plt.grid(True)
-plt.legend()
 plt.show()
 ```
-
 
 
 # Natural Sampling: 
 ```
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import resample
+from scipy.signal import butter, lfilter
 
-# Sampling frequency
-fs = 100  
+# Parameters
+fs, T, fm, fp = 1000, 1, 5, 50
+t = np.arange(0, T, 1/fs)
 
-# Time vector
-t = np.arange(0, 1, 1/fs)
+# Message signal
+m = np.sin(2*np.pi*fm*t)
 
-# Signal frequency
-f = 5  
+# Pulse train
+pw = fs // (2*fp)
+p = np.zeros_like(t)
+p[::fs//fp] = 1
+p = np.convolve(p, np.ones(pw), mode='same')
 
-# Continuous signal
-signal = np.sin(2 * np.pi * f * t)
+# Natural sampling
+nat = m * p
 
-# 1. Plot Continuous Signal
-plt.figure(figsize=(10, 4))
-plt.plot(t, signal, label='Continuous Signal')
-plt.title('Continuous Signal (fs = 100 Hz)')
-plt.xlabel('Time [s]')
-plt.ylabel('Amplitude')
+# Reconstruction (LPF)
+b, a = butter(4, 10/(0.5*fs), 'low')
+rec = lfilter(b, a, nat)
+
+# Plot
+plt.figure(figsize=(10,9))
+
+
+plt.subplot(4,1,1)
+plt.plot(t, m)
+plt.title("Message Signal")
 plt.grid(True)
-plt.legend()
-plt.show()
 
-# 2. Natural Sampling
-
-# Pulse width 
-pulse_width = int(0.2 * fs)  
-
-# Create pulse train
-pulse_train = np.zeros_like(t)
-
-for i in range(0, len(t), int(fs/f)):
-    pulse_train[i:i+pulse_width] = 1
-
-# Natural sampled signal 
-natural_sampled = signal * pulse_train
-
-plt.figure(figsize=(10, 4))
-plt.plot(t, natural_sampled, 'r', label='Natural Sampled Signal')
-plt.title('Natural Sampling')
-plt.xlabel('Time [s]')
-plt.ylabel('Amplitude')
+plt.subplot(4,1,2)
+plt.plot(t, p)
+plt.title("Pulse Train")
 plt.grid(True)
-plt.legend()
-plt.show()
 
-# 3. Reconstruction
-
-reconstructed_signal = resample(natural_sampled, len(t))
-
-plt.figure(figsize=(10, 4))
-plt.plot(t, reconstructed_signal, 'g--', label='Reconstructed Signal')
-plt.title('Reconstructed Signal from Natural Sampling')
-plt.xlabel('Time [s]')
-plt.ylabel('Amplitude')
+plt.subplot(4,1,3)
+plt.plot(t, nat)
+plt.title("Natural Sampling")
 plt.grid(True)
-plt.legend()
+
+plt.subplot(4,1,4)
+plt.plot(t, rec, color='g')
+plt.title("Reconstructed Signal")
+plt.grid(True)
+
+plt.tight_layout(rect=[0,0,1,0.93])
 plt.show()
 ```
-
 
 
 
@@ -212,11 +176,13 @@ plt.show()
 
 # Ideal Sampling: 
 
-<img width="925" height="1186" alt="image" src="https://github.com/user-attachments/assets/77bd2020-b313-4413-b3a5-4f7c6cdc2078" />
+<img width="901" height="429" alt="image" src="https://github.com/user-attachments/assets/80965c56-188f-4879-b3a8-7da2d643feab" />
+
 
 # Natural Sampling: 
 
-<img width="914" height="1181" alt="image" src="https://github.com/user-attachments/assets/eed274c1-0fb1-4136-b04a-c1ede2e4d2ca" />
+<img width="998" height="839" alt="image" src="https://github.com/user-attachments/assets/105a8a5c-5901-4c7d-ae39-e4caf47c453f" />
+
 
 # Flat-top sampling: 
 
