@@ -222,6 +222,7 @@ plt.show()
 
 <img width="1224" height="1039" alt="image" src="https://github.com/user-attachments/assets/37f3dac9-05ef-4030-aad5-b14013bee1c9" />
 
+
 # RESULTS: 
 
 Impulse sampling gives perfect reconstruction, while natural and flat-top sampling allow approximate reconstruction, with flat-top introducing slight amplitude distortion.
