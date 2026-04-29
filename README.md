@@ -272,4 +272,30 @@ Impulse sampling gives perfect reconstruction, while natural and flat-top sampli
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .
