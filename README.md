@@ -19,7 +19,7 @@ from scipy.signal import resample
 # Sampling frequency
 fs = 50
 
-# Time vector (1 second duration)
+# Time vector 
 t = np.arange(0, 1, 1/fs)
 
 # Signal frequency
@@ -28,9 +28,8 @@ f = 5
 # Continuous signal (sine wave)
 signal = np.sin(2 * np.pi * f * t)
 
-# -------------------------------
 # 1. Plot Continuous Signal
-# -------------------------------
+
 plt.figure(figsize=(10, 4))
 plt.plot(t, signal, label='Continuous Signal')
 plt.title('Continuous Signal (fs = 100 Hz)')
@@ -40,9 +39,8 @@ plt.grid(True)
 plt.legend()
 plt.show()
 
-# -------------------------------
-# 2. Impulse Sampling (Stem Plot)
-# -------------------------------
+# 2. Impulse Sampling 
+
 t_sampled = np.arange(0, 1, 1/fs)
 signal_sampled = np.sin(2 * np.pi * f * t_sampled)
 
@@ -56,9 +54,8 @@ plt.grid(True)
 plt.legend()
 plt.show()
 
-# -------------------------------
 # 3. Reconstruction of Signal
-# -------------------------------
+
 reconstructed_signal = resample(signal_sampled, len(t))
 
 plt.figure(figsize=(10, 4))
@@ -91,9 +88,7 @@ f = 5
 # Continuous signal
 signal = np.sin(2 * np.pi * f * t)
 
-# -------------------------------
 # 1. Plot Continuous Signal
-# -------------------------------
 plt.figure(figsize=(10, 4))
 plt.plot(t, signal, label='Continuous Signal')
 plt.title('Continuous Signal (fs = 100 Hz)')
@@ -103,12 +98,10 @@ plt.grid(True)
 plt.legend()
 plt.show()
 
-# -------------------------------
 # 2. Natural Sampling
-# -------------------------------
 
-# Pulse width (duty cycle control)
-pulse_width = int(0.2 * fs)   # 20% of sampling period
+# Pulse width 
+pulse_width = int(0.2 * fs)  
 
 # Create pulse train
 pulse_train = np.zeros_like(t)
@@ -116,7 +109,7 @@ pulse_train = np.zeros_like(t)
 for i in range(0, len(t), int(fs/f)):
     pulse_train[i:i+pulse_width] = 1
 
-# Natural sampled signal (multiplication)
+# Natural sampled signal 
 natural_sampled = signal * pulse_train
 
 plt.figure(figsize=(10, 4))
@@ -128,9 +121,8 @@ plt.grid(True)
 plt.legend()
 plt.show()
 
-# -------------------------------
 # 3. Reconstruction
-# -------------------------------
+
 reconstructed_signal = resample(natural_sampled, len(t))
 
 plt.figure(figsize=(10, 4))
@@ -153,11 +145,11 @@ import matplotlib.pyplot as plt
 from scipy.signal import butter, lfilter
 
 # Parameters
-fs = 1000        # Sampling frequency (Hz)
-T = 1            # Duration (seconds)
+fs = 1000        
+T = 1            
 t = np.arange(0, T, 1/fs)
 
-fm = 5           # Message signal frequency (Hz)
+fm = 5           
 
 # Original signal
 message_signal = np.sin(2 * np.pi * fm * t)
@@ -169,15 +161,15 @@ pulse_indices = np.arange(0, len(t), int(fs / pulse_rate))
 # Flat-top signal initialization
 flat_top_signal = np.zeros_like(t)
 
-# Pulse width (sample & hold duration)
+# Pulse width 
 pulse_width = int(fs / (2 * pulse_rate))
 
-# Flat-top sampling (sample and hold)
+# Flat-top sampling 
 for idx in pulse_indices:
     if idx + pulse_width < len(t):
         flat_top_signal[idx:idx + pulse_width] = message_signal[idx]
 
-# Low-pass filter (reconstruction)
+# Low-pass filter 
 def lowpass_filter(signal, cutoff, fs, order=5):
     nyquist = 0.5 * fs
     normal_cutoff = cutoff / nyquist
