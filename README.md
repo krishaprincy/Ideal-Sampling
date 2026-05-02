@@ -10,41 +10,21 @@ Write a simple Python program for the construction and reconstruction of ideal, 
 # THEORY: 
 
 **Sampling**
+
 Sampling is the process of converting a continuous-time signal into a discrete-time signal by taking values at regular intervals.
 
-*1. Ideal Sampling (Impulse Sampling)*
+*1. Ideal Sampling (Impulse Sampling):*
 Ideal sampling is obtained by multiplying the signal with an impulse train.
 
-Mathematical Expression:
 
-[x_s(t) = x(t)\sum_{n=-\infty}^{\infty} \delta(t - nT_s)]
-
-
-*2. Natural Sampling*
+*2. Natural Sampling:*
 
 Natural sampling is obtained by multiplying the signal with a periodic pulse train of finite width.
 
-Mathematical Expression:
 
-[x_s(t) = x(t) \cdot p(t)]
-
-*3. Flat-top Sampling (Sample-and-Hold)*
+*3. Flat-top Sampling (Sample-and-Hold):*
 
 Flat-top sampling is a process where the sampled value is held constant for a certain time.
-
-Mathematical Expression:
-
-[x_s(t) = \sum x(nT_s), rect\left(\frac{t-nT_s}{\tau}\right)]
-
-
-*Nyquist Sampling Theorem*
-
-To avoid aliasing:
-[f_s \geq 2f_m]
-
-Where:
-( f_s ) = Sampling frequency
-( f_m ) = Maximum signal frequency
 
 
 # PROGRAM:
