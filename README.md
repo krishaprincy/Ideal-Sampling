@@ -13,17 +13,17 @@ Write a simple Python program for the construction and reconstruction of ideal, 
 
 Sampling is the process of converting a continuous-time signal into a discrete-time signal by taking values at regular intervals.
 
-# 1. Ideal Sampling (Impulse Sampling):
+## Ideal Sampling (Impulse Sampling):
 
 Ideal sampling is obtained by multiplying the signal with an impulse train.
 
 
-# 2. Natural Sampling:
+## Natural Sampling:
 
 Natural sampling is obtained by multiplying the signal with a periodic pulse train of finite width.
 
 
-# 3. Flat-top Sampling (Sample-and-Hold):
+## Flat-top Sampling (Sample-and-Hold):
 
 Flat-top sampling is a process where the sampled value is held constant for a certain time.
 
