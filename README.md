@@ -9,120 +9,44 @@ Write a simple Python program for the construction and reconstruction of ideal, 
 
 # THEORY: 
 
-Alright — here’s a **clean LAB RECORD–READY theory** (neatly structured, not too long, exactly what examiners expect). You can copy this directly.
+**Sampling**
+Sampling is the process of converting a continuous-time signal into a discrete-time signal by taking values at regular intervals.
 
----
+*1. Ideal Sampling (Impulse Sampling)*
+Ideal sampling is obtained by multiplying the signal with an impulse train.
 
-# 📘 **Experiment: Sampling of Signals (Ideal, Natural and Flat-top Sampling)**
-
-## 🔹 **Aim**
-
-To study and analyze different types of sampling techniques: **Ideal sampling, Natural sampling, and Flat-top sampling**, and to observe their waveforms and reconstruction.
-
----
-
-## 🔹 **Theory**
-
-### 🔸 **Sampling**
-
-Sampling is the process of converting a **continuous-time signal** into a **discrete-time signal** by taking values at regular intervals.
-
-**1. Ideal Sampling (Impulse Sampling)**
-Ideal sampling is obtained by multiplying the signal with an **impulse train**.
-
-**Mathematical Expression:**
+Mathematical Expression:
 
 [x_s(t) = x(t)\sum_{n=-\infty}^{\infty} \delta(t - nT_s)]
 
 
-* Samples are taken at discrete instants
-* Output consists of **impulses (spikes)**
-* Amplitude equals signal value at sampling instant
-* It is **not physically realizable**
+*2. Natural Sampling*
+
+Natural sampling is obtained by multiplying the signal with a periodic pulse train of finite width.
+
+Mathematical Expression:
+
+[x_s(t) = x(t) \cdot p(t)]
+
+*3. Flat-top Sampling (Sample-and-Hold)*
+
+Flat-top sampling is a process where the sampled value is held constant for a certain time.
+
+Mathematical Expression:
+
+[x_s(t) = \sum x(nT_s), rect\left(\frac{t-nT_s}{\tau}\right)]
 
 
-**2. Natural Sampling**
-
-Natural sampling is obtained by multiplying the signal with a **periodic pulse train of finite width**.
-
-### Mathematical Expression:
-
-[
-x_s(t) = x(t) \cdot p(t)
-]
-
-### Explanation:
-
-* Signal is passed only during pulse duration
-* Output contains **small portions of waveform**
-* Amplitude varies naturally within each pulse
-
-### Key Point:
-
-* More practical than ideal sampling
-* Less distortion compared to flat-top sampling
-
----
-
-## 🔹 **3. Flat-top Sampling (Sample-and-Hold)**
-
-Flat-top sampling is a process where the sampled value is **held constant for a certain time**.
-
-### Mathematical Expression:
-
-[
-x_s(t) = \sum x(nT_s), rect\left(\frac{t-nT_s}{\tau}\right)
-]
-
-### Explanation:
-
-* Each sample is held constant
-* Output appears as **staircase waveform**
-* Implemented using **Sample-and-Hold circuit**
-
-### Key Point:
-
-* Most widely used in practical systems
-* Introduces **aperture effect distortion**
-
----
-
-## 🔹 **Nyquist Sampling Theorem**
+*Nyquist Sampling Theorem*
 
 To avoid aliasing:
-[
-f_s \geq 2f_m
-]
+[f_s \geq 2f_m]
 
 Where:
+( f_s ) = Sampling frequency
+( f_m ) = Maximum signal frequency
 
-* ( f_s ) = Sampling frequency
-* ( f_m ) = Maximum signal frequency
 
----
-
-## 🔹 **Comparison**
-
-| Type     | Output           | Practical |
-| -------- | ---------------- | --------- |
-| Ideal    | Impulses         | No        |
-| Natural  | Chopped waveform | Limited   |
-| Flat-top | Staircase        | Yes       |
-
----
-
-## 🔹 **Result**
-
-The different sampling techniques were successfully studied. The waveforms of **ideal, natural, and flat-top sampling** along with their reconstructed signals were observed and analyzed.
-
----
-
-If you want, I can also give:
-✔ **Procedure (step-by-step for lab record)**
-✔ **Apparatus/Software used**
-✔ **Viva questions (very important before submission)**
-
-  
 # PROGRAM:
 
 # Ideal Sampling: 
