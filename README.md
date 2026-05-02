@@ -9,7 +9,7 @@ Write a simple Python program for the construction and reconstruction of ideal, 
 
 # THEORY: 
 
-**Sampling**
+## Sampling
 
 Sampling is the process of converting a continuous-time signal into a discrete-time signal by taking values at regular intervals.
 
